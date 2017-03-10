@@ -42,4 +42,47 @@ ATank* ATankAIController::GetPlayerTank() const
 	return Cast<ATank>(PlayerPawn);
 }
 
+void ATankAIController::AimTowardsCrosshair() const
+{
+	if (!GetControlledTank()) { return; }
 
+	FVector HitLocation; // OUT parameter
+	if (GetSightRayHitLocation(HitLocation)) // HAS "side-effect", is going to line trace
+	{
+		//UE_LOG(LogTemp, Warning, TEXT("Look Direction: %s"), *HitLocation.ToString());
+		GetControlledTank()->AimAt(HitLocation);
+		//If it hits the landscape
+		// TODO Tell Controlled tank to aim a this point
+	}
+}
+
+bool ATankAIController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const
+{
+	FVector CameraWorldLocation;//To be discarded
+	return DeprojectScreenPositionToWorld(
+		ScreenLocation.X,
+		ScreenLocation.Y,
+		CameraWorldLocation,
+		LookDirection);
+}
+
+bool ATankAIController::GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const
+{
+	FHitResult HitResult;
+	auto StartLocation = PlayerCameraManager->GetCameraLocation();
+	auto EndLocation = StartLocation + (LookDirection *LineTraceRange);
+	if (GetWorld()->LineTraceSingleByChannel(
+		HitResult,
+		StartLocation,
+		EndLocation,
+		ECollisionChannel::ECC_Visibility)
+		)
+	{
+		HitLocation = HitResult.Location;
+		return true;
+	}
+	HitLocation = FVector(0);
+	return false; // Line Trace didn't succeed
+
+	UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *LookDirection.ToString());
+}

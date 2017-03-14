@@ -28,7 +28,13 @@ private:
 	// the crosshair intersects the world
 	void AimTowardsCrosshair() const;
 
-	// Return an OUT parameter, true if hit landscape
+	/// Return an OUT parameter, true if hit landscape
+	// Returns bool
+	// Called GetSightRayHitLocation
+	// Mutates/changes an FVector
+	// & Parses a REFERENCE to an FVector
+	// FVector is gonna be called HitLocation
+	// Method is gonna be constant, wont change any member variables
 	bool GetSightRayHitLocation(FVector& HitLocation) const;
 
 	UPROPERTY(EditAnywhere)
@@ -42,7 +48,7 @@ private:
 	bool GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const;
 		
 	UPROPERTY(EditAnywhere)
-	float LineTraceRange = 1000000;
+	float LineTraceRange = 1000000; // LineTrace distance 10KM (10,000M, 1,000,000 cm)
 
 
 };

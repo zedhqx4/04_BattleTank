@@ -18,7 +18,6 @@ void ATankAIController::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("AIController possessing: %s"), *(ControlledTank->GetName()));
 	}
 	
-
 	auto PlayerTank = GetPlayerTank();
 	if (!PlayerTank)
 	{
@@ -42,47 +41,18 @@ ATank* ATankAIController::GetPlayerTank() const
 	return Cast<ATank>(PlayerPawn);
 }
 
-void ATankAIController::AimTowardsCrosshair() const
+void ATankAIController::Tick(float DeltaTime)
 {
-	if (!GetControlledTank()) { return; }
-
-	FVector HitLocation; // OUT parameter
-	if (GetSightRayHitLocation(HitLocation)) // HAS "side-effect", is going to line trace
+	// Super
+	Super::Tick(DeltaTime);
+	if (GetPlayerTank())
 	{
-		//UE_LOG(LogTemp, Warning, TEXT("Look Direction: %s"), *HitLocation.ToString());
-		GetControlledTank()->AimAt(HitLocation);
-		//If it hits the landscape
-		// TODO Tell Controlled tank to aim a this point
+		// TODO Move towards the player
+
+		// Aim towards the player
+		GetControlledTank()->AimAt(GetPlayerTank()->GetActorLocation());
+
+		// Fire if ready
 	}
-}
-
-bool ATankAIController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const
-{
-	FVector CameraWorldLocation;//To be discarded
-	return DeprojectScreenPositionToWorld(
-		ScreenLocation.X,
-		ScreenLocation.Y,
-		CameraWorldLocation,
-		LookDirection);
-}
-
-bool ATankAIController::GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const
-{
-	FHitResult HitResult;
-	auto StartLocation = PlayerCameraManager->GetCameraLocation();
-	auto EndLocation = StartLocation + (LookDirection *LineTraceRange);
-	if (GetWorld()->LineTraceSingleByChannel(
-		HitResult,
-		StartLocation,
-		EndLocation,
-		ECollisionChannel::ECC_Visibility)
-		)
-	{
-		HitLocation = HitResult.Location;
-		return true;
-	}
-	HitLocation = FVector(0);
-	return false; // Line Trace didn't succeed
-
-	UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *LookDirection.ToString());
+	// UE_LOG(LogTemp, Warning, TEXT("PlayController Ticking"));
 }

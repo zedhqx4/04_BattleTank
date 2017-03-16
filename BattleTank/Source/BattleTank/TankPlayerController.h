@@ -2,9 +2,12 @@
 
 #pragma once
 
-#include "Public/Tank.h"
+// #include "Public/Tank.h"
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h" // Must be the last include
+
+// Forward declaration
+class ATank; // somewhere down here we have ATank class
 
 /**
  * 

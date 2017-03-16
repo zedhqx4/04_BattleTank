@@ -2,9 +2,13 @@
 
 #pragma once
 
-#include "TankAimingComponent.h"
+//#include "TankAimingComponent.h" // not needed here, but in the cpp file
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h" // Put new includes above this ALWAYS
+
+// Forward declarations
+class UTankBarrel;
+class UTankAimingComponent; 
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn

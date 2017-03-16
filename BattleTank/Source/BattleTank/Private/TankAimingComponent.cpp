@@ -71,6 +71,5 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
 	// TankBarrel.cpp method line 11
-	Barrel->Elevate(5); // TODO remove magic number
-	//UE_LOG(LogTemp, Warning, TEXT("Works till here MoveBarrelTowards"));
+	Barrel->Elevate(DeltaRotator.Pitch); // TODO remove magic number
 }

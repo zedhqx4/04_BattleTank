@@ -10,6 +10,7 @@
 class UTankBarrel;
 class UTankTurret;
 class UTankAimingComponent; 
+class AProjectile;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -45,5 +46,12 @@ private:
 	
 	UPROPERTY(EditAnywhere, Category = Firing)
 		float LaunchSpeed = 4000; // TODO find sensible default (Sensible starting value of 1000 m/s)
+
+	UPROPERTY(EditAnywhere, Category = Setup)
+		// UClass* ProjectileBlueprint; /// This let us pick a blueprint in the Tank BLueprint. Danger of crash
+		TSubclassOf<AProjectile> ProjectileBlueprint; // Make forward declaration up this file
+
+	// Local barrel reference for spawning projectile
+	UTankBarrel* Barrel = nullptr;
 
 };

@@ -44,18 +44,19 @@ private:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
-	UPROPERTY(EditAnywhere, Category = Firing)
-		float LaunchSpeed = 4000; // TODO find sensible default (Sensible starting value of 1000 m/s)
-
-	UPROPERTY(EditAnywhere, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
 		// UClass* ProjectileBlueprint; /// This let us pick a blueprint in the Tank BLueprint. Danger of crash
 		TSubclassOf<AProjectile> ProjectileBlueprint; // Make forward declaration up this file
 
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+		float ReloadTimeInSeconds = 3;
+
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+		float LaunchSpeed = 4000; // TODO find sensible default (Sensible starting value of 1000 m/s)
+
 	// Local barrel reference for spawning projectile
 	UTankBarrel* Barrel = nullptr;
-
-	float ReloadTimeInSeconds = 3;
-
+		
 	double LastFireTime = 0;
 
 };

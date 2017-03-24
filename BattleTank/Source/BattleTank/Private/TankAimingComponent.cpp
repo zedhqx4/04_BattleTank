@@ -63,9 +63,9 @@ void  UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	else
 	{
 		if (!Turret) { return; }
-		auto Time = GetWorld()->GetTimeSeconds();
+		/*auto Time = GetWorld()->GetTimeSeconds();
 		UE_LOG(LogTemp, Warning, TEXT(" %f: No aim solve found"), Time);
-		
+		*/
 	}
 	// if no solution found do nothing
 }

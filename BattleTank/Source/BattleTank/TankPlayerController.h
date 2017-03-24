@@ -40,18 +40,20 @@ private:
 	// Method is gonna be constant, wont change any member variables
 	bool GetSightRayHitLocation(FVector& HitLocation) const;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	float CrossHairXLocation = 0.5;
 	
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	float CrossHairYLocation = 0.3333333;
 
+	UPROPERTY(EditDefaultsOnly)
+		float LineTraceRange = 1000000; // LineTrace distance 10KM (10,000M, 1,000,000 cm)
+	
 	bool GetLookDirection(FVector2D ScreenLocation, FVector & LookDirection) const;
 	
 	bool GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const;
 		
-	UPROPERTY(EditAnywhere)
-	float LineTraceRange = 1000000; // LineTrace distance 10KM (10,000M, 1,000,000 cm)
+	
 
 
 };

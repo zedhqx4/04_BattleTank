@@ -9,8 +9,10 @@
 // Forward declarations
 class UTankBarrel;
 class UTankTurret;
-class UTankAimingComponent; 
+class UTankAimingComponent;
+class UTankMovementComponent;
 class AProjectile;
+
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -31,7 +33,11 @@ public:
 		void Fire();
 
 protected:
+	// protected pointers to use in BluePrint
 	UTankAimingComponent* TankAimingComponent = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly) //Add this to be able to add as node within Blueprint
+	UTankMovementComponent* TankMovementComponent = nullptr;
 
 
 private:

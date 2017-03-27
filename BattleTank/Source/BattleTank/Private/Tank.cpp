@@ -4,6 +4,7 @@
 #include "TankBarrel.h"
 #include "Projectile.h"
 #include "TankAimingComponent.h" // moved from the header file tank.h
+#include "TankMovementComponent.h"
 #include "Tank.h"
 
 
@@ -14,7 +15,11 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 
 	// No need to protect pointers as added at construction
+	
 	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component")); // 
+
+	TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("Movement Component")); // 
+	
 }
 
 //void ATank::SetBarrelReference(UStaticMeshComponent* BarrelToSet)

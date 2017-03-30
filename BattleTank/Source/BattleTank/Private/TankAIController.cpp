@@ -56,14 +56,12 @@ void ATankAIController::Tick(float DeltaTime)
 	// if (GetPlayerTank())
 	if (PlayerTank)
 	{
-		// TODO Move towards the player
+		// Move towards the player
+		MoveToActor(PlayerTank, AcceptanceRadius); // TODO Check radius is in cm
 
 		// Aim towards the player
 		ControlledTank->AimAt(PlayerTank->GetActorLocation());
-		//ControlledTank()->AimAt(PlayerTank()->GetActorLocation());
-
-		// Fire if ready
+		
 		ControlledTank->Fire(); // TODO limit firing rate
 	}
-	// UE_LOG(LogTemp, Warning, TEXT("PlayController Ticking"));
 }

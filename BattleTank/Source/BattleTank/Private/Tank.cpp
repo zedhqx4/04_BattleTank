@@ -15,10 +15,10 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 
 	// No need to protect pointers as added at construction
-	
+	// THis is what creates the component within BLUEPRINTs
 	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component")); // 
 
-	TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("Movement Component")); // 
+	// TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("Movement Component")); // 
 	
 }
 

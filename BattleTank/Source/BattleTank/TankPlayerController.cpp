@@ -42,9 +42,6 @@ void ATankPlayerController::AimTowardsCrosshair() const
 	{
 		//UE_LOG(LogTemp, Warning, TEXT("Look Direction: %s"), *HitLocation.ToString());
 		GetControlledTank()->AimAt(HitLocation); // call to TANK.h-cpp AimAt()
-		
-		//If it hits the landscape
-		// TODO Tell Controlled tank to aim a this point
 	}
 }
 

@@ -16,38 +16,41 @@ ATank::ATank()
 
 	// No need to protect pointers as added at construction
 	// THis is what creates the component within BLUEPRINTs
-	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component")); // 
+	// TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component")); // This creates the Inherited "TankAimingComponent" in the BP editor
+
 
 	// TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("Movement Component")); // 
 	
 }
 
 //void ATank::SetBarrelReference(UStaticMeshComponent* BarrelToSet)
-void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
+/*void ATank::initialise(UTankTurret* TurretToSet, UTankBarrel* BarrelToSet)
 {
-TankAimingComponent->SetBarrelReference(BarrelToSet);
-Barrel = BarrelToSet;
-}
+	TankAimingComponent->SetCanonReference(TurretToSet,BarrelToSet);
+	Barrel = BarrelToSet;
+	Turret = TurretToSet;
+}*/
 
-void ATank::SetTurretReference(UTankTurret* TurretToSet)
+/*void ATank::SetTurretReference(UTankTurret* TurretToSet)
 {
-	TankAimingComponent->SetTurretReference(TurretToSet);
+	TankAimingComponent->SetCanonReference(TurretToSet);
 }
+*/
 
 // Called when the game starts or when spawned
-void ATank::BeginPlay()
+/*void ATank::BeginPlay()
 {
 	Super::BeginPlay();
 	
 	
-}
+}*/
 
 // Called to bind functionality to input
-void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+/*void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-}
+}*/
 
 void ATank::AimAt(FVector HitLocation)
 {

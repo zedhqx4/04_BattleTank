@@ -34,6 +34,7 @@ public:
 
 protected:
 	// protected pointers to use in BluePrint
+	UPROPERTY(BlueprintReadOnly)
 	UTankAimingComponent* TankAimingComponent = nullptr;
 	
 	UPROPERTY(BlueprintReadOnly) //Add this to be able to add as node within Blueprint

@@ -17,11 +17,11 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 	
-
+protected:
+	UFUNCTION(BlueprintCallable, Category = "Setup") //Add this to be able to add as node within Blueprint
+	ATank* GetControlledTank() const;
 
 private:
-	ATank* GetControlledTank() const;
-	
 	virtual void BeginPlay() override;
 
 	// Called every frame

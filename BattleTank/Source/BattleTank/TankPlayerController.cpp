@@ -2,7 +2,7 @@
 
 #include "BattleTank.h"
 #include "TankAimingComponent.h"
-#include "Public/Tank.h"
+// #include "Public/Tank.h"
 #include "TankPlayerController.h"
 
 // Tick
@@ -17,7 +17,7 @@ void ATankPlayerController::Tick(float DeltaTime)
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (!ensure(AimingComponent)) { return; }
 	FoundAimingComponent(AimingComponent);
 	
@@ -33,20 +33,24 @@ void ATankPlayerController::BeginPlay()
 	
 }
 
+/*
 ATank* ATankPlayerController::GetControlledTank() const
 {
-	return Cast<ATank>(GetPawn());
+	// return Cast<ATank>(GetPawn());
+	return GetPawn();
 }
-
+*/
 void ATankPlayerController::AimTowardsCrosshair() const
 {
-	if (!ensure(GetControlledTank())) { return; }
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (!ensure(AimingComponent)) { return; }
 
 	FVector HitLocation; // OUT parameter
 	if (GetSightRayHitLocation(HitLocation)) // HAS "side-effect", is going to line trace //parsing Hitlocation as the thing going to be used as the OUT parameter
 	{
 		//UE_LOG(LogTemp, Warning, TEXT("Look Direction: %s"), *HitLocation.ToString());
-		GetControlledTank()->AimAt(HitLocation); // call to TANK.h-cpp AimAt()
+		AimingComponent->AimAt(HitLocation); // call to TANK.h-cpp AimAt()
+
 	}
 }
 

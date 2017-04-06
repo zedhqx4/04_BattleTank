@@ -9,7 +9,7 @@
 // Forward declarations
 class UTankBarrel;
 class UTankTurret;
-class UTankAimingComponent;
+// class UTankAimingComponent;
 // class UTankMovementComponent;
 class AProjectile;
 
@@ -29,15 +29,15 @@ public:
 		void SetTurretReference(UTankTurret* TurretToSet);
 	*/
 	
-	void AimAt(FVector HitLocation);
+	
 
 	UFUNCTION(BlueprintCallable)
 		void Fire();
 
-protected:
+//protected:
 	// protected pointers to use in BluePrint
-	UPROPERTY(BlueprintReadOnly)
-	UTankAimingComponent* TankAimingComponent = nullptr;
+	//UPROPERTY(BlueprintReadOnly)
+	// UTankAimingComponent* TankAimingComponent = nullptr;
 	
 	// UPROPERTY(BlueprintReadOnly) //Add this to be able to add as node within Blueprint
 	// UTankMovementComponent* TankMovementComponent = nullptr;

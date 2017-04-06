@@ -35,7 +35,7 @@ public:
 	//void SetCanonReference(UTankTurret* TurretToSet, UTankBarrel* BarrelToSet);
 	//void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
 
-	void AimAt(FVector HitLocation, float LaunchSpeed);
+	void AimAt(FVector HitLocation);
 
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
@@ -60,6 +60,9 @@ private:
 
 	UTankTurret* Turret = nullptr;
 	//UStaticMeshComponent* Barrel = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float LaunchSpeed = 4000;
 
 	void MoveTurretTowards(FVector AimDirection);
 

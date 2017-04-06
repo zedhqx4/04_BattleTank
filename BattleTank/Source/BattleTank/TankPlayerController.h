@@ -7,7 +7,7 @@
 #include "TankPlayerController.generated.h" // Must be the last include
 
 // Forward declaration
-class ATank; // somewhere down here we have ATank class
+// class ATank; // somewhere down here we have ATank class
 class UTankAimingComponent;
 
 /**
@@ -19,8 +19,8 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 	
 protected:
-	UFUNCTION(BlueprintCallable, Category = "Setup") //Add this to be able to add as node within Blueprint
-	ATank* GetControlledTank() const;
+	//UFUNCTION(BlueprintCallable, Category = "Setup") //Add this to be able to add as node within Blueprint
+	//ATank* GetControlledTank() const;
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 		void FoundAimingComponent(UTankAimingComponent* AimCompRef); // EVENTNAME(Argument)

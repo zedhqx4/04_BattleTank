@@ -23,7 +23,7 @@ UTankAimingComponent::UTankAimingComponent()
 
 void  UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
-	if (!Barrel) { UE_LOG(LogTemp, Warning, TEXT("Works till here !Barrel"));  return; }
+	if (!ensure(Barrel)) { UE_LOG(LogTemp, Warning, TEXT("Works till here !Barrel"));  return; }
 	
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile")); // In the engine create a socket in a mesh, if it fails uses location of the barrel (element
@@ -54,7 +54,7 @@ void  UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	}
 	else
 	{
-		if (!Turret) { return; }
+		if (!ensure(Turret)) { return; }
 		/*auto Time = GetWorld()->GetTimeSeconds();
 		UE_LOG(LogTemp, Warning, TEXT(" %f: No aim solve found"), Time);
 		*/
@@ -64,7 +64,7 @@ void  UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
-	if (!Barrel || !Turret) { return; }
+	if (!ensure(Barrel && Turret)) { return; }
 
 	// Work-out difference between current barrel roation, and AimDirection
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();

@@ -17,9 +17,9 @@ ATank::ATank()
 	// No need to protect pointers as added at construction
 	// THis is what creates the component within BLUEPRINTs
 	// TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component")); // This creates the Inherited "TankAimingComponent" in the BP editor
-
-
-	// TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("Movement Component")); // 
+	auto TankName = GetName();
+	UE_LOG(LogTemp,Warning,TEXT("%s DONKEY: Tank C++ Construct"),*TankName)
+	
 	
 }
 
@@ -38,12 +38,14 @@ ATank::ATank()
 */
 
 // Called when the game starts or when spawned
-/*void ATank::BeginPlay()
+void ATank::BeginPlay()
 {
-	Super::BeginPlay();
+	Super::BeginPlay(); // Needed for BP Begin Play to run!
 	
+	auto TankName = GetName();
+	UE_LOG(LogTemp, Warning, TEXT("%s DONKEY: Tank C++ BeginPlay"), *TankName)
 	
-}*/
+}
 
 // Called to bind functionality to input
 /*void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -54,14 +56,16 @@ ATank::ATank()
 
 void ATank::AimAt(FVector HitLocation)
 {
+	if (!ensure(TankAimingComponent)) { return; }
 	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
 			
 }
 
 void ATank::Fire()
 {
+	if (!ensure(Barrel)) { return; }
 	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
-	if (Barrel && isReloaded) { // && = and
+	if (isReloaded) { // && = "and" (was removed "if (barrel && isReloaded)"), || = "or"
 
 		// Spawn the projectile at the socket location
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(

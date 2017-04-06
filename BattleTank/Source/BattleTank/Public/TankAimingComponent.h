@@ -47,7 +47,7 @@ protected:
 		// EFiringState Is the class
 		// FiringState IS our variable
 		// Initializes to "EFiringState::Reloading"
-		EFiringState FiringState = EFiringState::Reloading;
+		EFiringState FiringState = EFiringState::Aiming;
 
 private:
 		// Sets default values for this component's properties

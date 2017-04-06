@@ -4,6 +4,7 @@
 #include "BattleTank.h"
 #include "Tank.h" // moved from header file
 #include "Public/TankAIController.h"
+// Dependes on movement component via pathfinding system
 
 void ATankAIController::BeginPlay()
 {

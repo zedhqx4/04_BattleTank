@@ -10,7 +10,7 @@
 class UTankBarrel;
 class UTankTurret;
 class UTankAimingComponent;
-class UTankMovementComponent;
+// class UTankMovementComponent;
 class AProjectile;
 
 
@@ -39,8 +39,8 @@ protected:
 	UPROPERTY(BlueprintReadOnly)
 	UTankAimingComponent* TankAimingComponent = nullptr;
 	
-	UPROPERTY(BlueprintReadOnly) //Add this to be able to add as node within Blueprint
-	UTankMovementComponent* TankMovementComponent = nullptr;
+	// UPROPERTY(BlueprintReadOnly) //Add this to be able to add as node within Blueprint
+	// UTankMovementComponent* TankMovementComponent = nullptr;
 
 
 private:

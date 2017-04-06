@@ -17,10 +17,7 @@ ATank::ATank()
 	// No need to protect pointers as added at construction
 	// THis is what creates the component within BLUEPRINTs
 	// TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component")); // This creates the Inherited "TankAimingComponent" in the BP editor
-	auto TankName = GetName();
-	UE_LOG(LogTemp,Warning,TEXT("%s DONKEY: Tank C++ Construct"),*TankName)
-	
-	
+		
 }
 
 //void ATank::SetBarrelReference(UStaticMeshComponent* BarrelToSet)
@@ -42,9 +39,7 @@ void ATank::BeginPlay()
 {
 	Super::BeginPlay(); // Needed for BP Begin Play to run!
 	
-	auto TankName = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%s DONKEY: Tank C++ BeginPlay"), *TankName)
-	
+	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
 }
 
 // Called to bind functionality to input
@@ -58,15 +53,15 @@ void ATank::AimAt(FVector HitLocation)
 {
 	if (!ensure(TankAimingComponent)) { return; }
 	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
-			
 }
 
 void ATank::Fire()
 {
 	if (!ensure(Barrel)) { return; }
 	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
-	if (isReloaded) { // && = "and" (was removed "if (barrel && isReloaded)"), || = "or"
-
+	
+	if (isReloaded) // && = "and" (was removed "if (barrel && isReloaded)"), || = "or"
+	{
 		// Spawn the projectile at the socket location
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
 			ProjectileBlueprint,

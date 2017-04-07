@@ -20,7 +20,6 @@ class UTankTurret;
 class AProjectile;
 
 
-
 /**
 *  Hold Barrel's properties and elevate method
 */
@@ -36,19 +35,18 @@ public:
 	//void SetCanonReference(UTankTurret* TurretToSet, UTankBarrel* BarrelToSet);
 	//void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
 
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	void Initialise(UTankTurret* TurretToSet, UTankBarrel* BarrelTrackToSet);
+
 	void AimAt(FVector HitLocation);
 
-
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-		void Initialise(UTankTurret* TurretToSet, UTankBarrel* BarrelTrackToSet);
-
 	UFUNCTION(BlueprintCallable)
-		void Fire();
+	void Fire();
 
 
 protected:
 	UPROPERTY(BluePrintReadOnly, Category = "State")
-	EFiringState FiringState = EFiringState::Aiming;
+	EFiringState FiringState = EFiringState::Reloading;
 	// EFiringState Is the class
 	// FiringState IS our variable
 	// Initializes to "EFiringState::Reloading"
@@ -57,7 +55,11 @@ private:
 		// Sets default values for this component's properties
 	UTankAimingComponent();
 
-	void LaunchProjectile(float Speed);
+	virtual void BeginPlay() override;
+
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+
+	//void LaunchProjectile(float Speed);
 	void MoveBarrelTowards(FVector AimDirection);
 	// void MoveTurretTowards(FVector AimDirection);
 

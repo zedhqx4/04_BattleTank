@@ -12,14 +12,31 @@ void UTankAimingComponent::Initialise(UTankTurret* TurretToSet, UTankBarrel* Bar
 	Turret = TurretToSet;
 	Barrel = BarrelToSet;
 }
+
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = false; // Should this tick? NO
+	PrimaryComponentTick.bCanEverTick = true; // Should this tick? NO (Now it should so YES, tickcomponent below)
 
 	// ...
+}
+
+void UTankAimingComponent::BeginPlay()
+{
+	// So that first fire is after initial reload
+	LastFireTime = FPlatformTime::Seconds();
+}
+
+void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
+{
+	//UE_LOG(LogTemp, Warning, TEXT("Aiming Comp. Ticking"));
+	if((FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds)
+	{
+		FiringState = EFiringState::Reloading;
+	}
+	// TODO Handle aiming and locked states
 }
 
 void  UTankAimingComponent::AimAt(FVector HitLocation)
@@ -78,11 +95,13 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 
 void UTankAimingComponent::Fire()
 {
-	if (!ensure(Barrel && ProjectileBlueprint)) { return; }
-	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
+	// bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
 
-	if (isReloaded) // && = "and" (was removed "if (barrel && isReloaded)"), || = "or"
+	//if (isReloaded) // && = "and" (was removed "if (barrel && isReloaded)"), || = "or"
+	if (FiringState != EFiringState::Reloading)
 	{
+		if (!ensure(Barrel)) { return; }
+		if (!ensure(ProjectileBlueprint)) { return; }
 		// Spawn the projectile at the socket location
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
 			ProjectileBlueprint,

@@ -3,6 +3,7 @@
 #include "BattleTank.h"
 #include "TankTurret.h"
 #include "TankBarrel.h"
+#include "Projectile.h"
 #include "TankAimingComponent.h"
 
 
@@ -73,4 +74,23 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	// TankBarrel.cpp method line 11
 	Barrel->Elevate(DeltaRotator.Pitch); // TODO remove magic number
 	Turret->Rotate(DeltaRotator.Yaw);
+}
+
+void UTankAimingComponent::Fire()
+{
+	if (!ensure(Barrel && ProjectileBlueprint)) { return; }
+	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
+
+	if (isReloaded) // && = "and" (was removed "if (barrel && isReloaded)"), || = "or"
+	{
+		// Spawn the projectile at the socket location
+		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
+			ProjectileBlueprint,
+			Barrel->GetSocketLocation(FName("Projectile")),//#Include TankBarrel.h
+			Barrel->GetSocketRotation(FName("Projectile"))
+			);
+
+		Projectile->LaunchProjectile(LaunchSpeed);
+		LastFireTime = FPlatformTime::Seconds();
+	}
 }

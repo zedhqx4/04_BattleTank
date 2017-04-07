@@ -7,11 +7,11 @@
 #include "Tank.generated.h" // Put new includes above this ALWAYS
 
 // Forward declarations
-class UTankBarrel;
-class UTankTurret;
+//class UTankBarrel;
+//class UTankTurret;
 // class UTankAimingComponent;
 // class UTankMovementComponent;
-class AProjectile;
+//class AProjectile;
 
 
 UCLASS()
@@ -31,8 +31,8 @@ public:
 	
 	
 
-	UFUNCTION(BlueprintCallable)
-		void Fire();
+	//UFUNCTION(BlueprintCallable)
+		//void Fire();
 
 //protected:
 	// protected pointers to use in BluePrint
@@ -48,12 +48,12 @@ private:
 	ATank();
 
 	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	// virtual void BeginPlay() override;
 
 	// Called to bind functionality to input
 	//virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
-	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	/*UPROPERTY(EditDefaultsOnly, Category = "Setup")
 		// UClass* ProjectileBlueprint; /// This let us pick a blueprint in the Tank BLueprint. Danger of crash
 		TSubclassOf<AProjectile> ProjectileBlueprint; // Make forward declaration up this file
 
@@ -63,11 +63,12 @@ private:
 	// TODO remove once firing is moved to aiming component
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 		float LaunchSpeed = 4000; // TODO find sensible default (Sensible starting value of 1000 m/s)
+		
 
 	// Local barrel reference for spawning projectile
 	UTankBarrel* Barrel = nullptr; // Not needed anymore
 	
 		
 	double LastFireTime = 0;
-
+	*/
 };

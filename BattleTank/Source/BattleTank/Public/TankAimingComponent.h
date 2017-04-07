@@ -17,6 +17,7 @@ enum class EFiringState : uint8
 // Fordward Declaration
 class UTankBarrel;
 class UTankTurret;
+class AProjectile;
 
 
 
@@ -41,30 +42,41 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 		void Initialise(UTankTurret* TurretToSet, UTankBarrel* BarrelTrackToSet);
 
+	UFUNCTION(BlueprintCallable)
+		void Fire();
+
 
 protected:
 	UPROPERTY(BluePrintReadOnly, Category = "State")
-		// EFiringState Is the class
-		// FiringState IS our variable
-		// Initializes to "EFiringState::Reloading"
-		EFiringState FiringState = EFiringState::Aiming;
+	EFiringState FiringState = EFiringState::Aiming;
+	// EFiringState Is the class
+	// FiringState IS our variable
+	// Initializes to "EFiringState::Reloading"
 
 private:
 		// Sets default values for this component's properties
 	UTankAimingComponent();
 
-	UTankBarrel* Barrel = nullptr;
-	//UStaticMeshComponent* Barrel = nullptr;
-
+	void LaunchProjectile(float Speed);
 	void MoveBarrelTowards(FVector AimDirection);
+	// void MoveTurretTowards(FVector AimDirection);
 
+	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 	//UStaticMeshComponent* Barrel = nullptr;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float LaunchSpeed = 4000;
+		
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+		// UClass* ProjectileBlueprint; /// This let us pick a blueprint in the Tank BLueprint. Danger of crash
+		TSubclassOf<AProjectile> ProjectileBlueprint; // Make forward declaration up this file
 
-	void MoveTurretTowards(FVector AimDirection);
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+		float ReloadTimeInSeconds = 3;
+		
+
+	double LastFireTime = 0;
 
 	
 };

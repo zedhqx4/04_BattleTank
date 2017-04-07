@@ -24,7 +24,10 @@ public:
 
 	void LaunchProjectile(float Speed);
 
+	
+
 private:
 	UProjectileMovementComponent* ProjectileMovement = nullptr;
+
 	
 };

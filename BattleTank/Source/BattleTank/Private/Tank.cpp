@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BattleTank.h"
-#include "TankBarrel.h"
-#include "Projectile.h"
+//#include "TankBarrel.h"
+// #include "Projectile.h"
 // #include "TankAimingComponent.h" // moved from the header file tank.h
 // #include "TankMovementComponent.h"
 #include "Tank.h"
@@ -35,11 +35,11 @@ ATank::ATank()
 */
 
 // Called when the game starts or when spawned
-void ATank::BeginPlay()
+/*void ATank::BeginPlay()
 {
 	Super::BeginPlay(); // Needed for BP Begin Play to run!
 	
-}
+}*/
 
 // Called to bind functionality to input
 /*void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -49,7 +49,7 @@ void ATank::BeginPlay()
 }*/
 
 
-void ATank::Fire()
+/*void ATank::Fire()
 {
 	if (!ensure(Barrel)) { return; }
 	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
@@ -66,4 +66,4 @@ void ATank::Fire()
 		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
 	}
-}
+}*/

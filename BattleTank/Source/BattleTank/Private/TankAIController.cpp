@@ -4,7 +4,7 @@
 #include "BattleTank.h"
 #include "TankAimingComponent.h"
 // #include "Tank.h" // moved from header file
-#include "Public/TankAIController.h"
+#include "TankAIController.h"
 // Dependes on movement component via pathfinding system
 
 void ATankAIController::BeginPlay()
@@ -65,7 +65,6 @@ void ATankAIController::Tick(float DeltaTime)
 	auto AimingComponent = ControlledTank->FindComponentByClass<UTankAimingComponent>();
 	AimingComponent->AimAt(PlayerTank->GetActorLocation());
 		
-	// TODO Fix Firing
-	// ControlledTank->Fire(); // TODO limit firing rate
+	AimingComponent->Fire(); // TODO limit firing rate
 	
 }

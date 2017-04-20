@@ -125,11 +125,11 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirectionFix)
 
 	// Always yaw the shortest way
 	Barrel->Elevate(DeltaRotator.Pitch); // TODO remove magic number
-	if ( FMath::Abs(DeltaRotator.Yaw) < 180)
+	if ( FMath::Abs(DeltaRotator.Yaw) < 180) // Takes Absolute value of the YAW and ask if it is less than 180
 	{
 		Turret->Rotate(DeltaRotator.Yaw);
 	}
-	else
+	else // Avoid going the long-way round
 	{
 		Turret->Rotate(-DeltaRotator.Yaw);
 	}

@@ -23,10 +23,10 @@ public:
 
 	// This is needed to be able to call and add within BluePrint "Intended Move Forward"
 	UFUNCTION(BlueprintCallable, Category = "Input")
-	void IntendedMoveForward(float Throw);
+	void IntendMoveForward(float Throw);
 
 	UFUNCTION(BlueprintCallable, Category = Input)
-		void IntendedTurnRight(float Throw);
+		void IntendTurnRight(float Throw);
 	
 		
 private:

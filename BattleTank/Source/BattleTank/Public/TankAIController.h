@@ -13,6 +13,12 @@ class BATTLETANK_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
 
+protected:
+	// How close can the AI tank get
+	//Must be in protected since BP is a child class from c++ class
+	UPROPERTY(EditDefaultsOnly, Category = "Setup") // Consider 
+	float AcceptanceRadius = 80000;
+
 private:
 	
 	virtual void BeginPlay() override;
@@ -22,6 +28,5 @@ private:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	// How close can the AI tank get
-	float AcceptanceRadius = 3000;
+
 };

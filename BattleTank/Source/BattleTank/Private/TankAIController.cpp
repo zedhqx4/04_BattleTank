@@ -1,11 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#
 #include "BattleTank.h"
 #include "TankAimingComponent.h"
 // #include "Tank.h" // moved from header file
 #include "TankAIController.h"
 // Dependes on movement component via pathfinding system
+
+
 
 void ATankAIController::BeginPlay()
 {
@@ -34,6 +35,7 @@ void ATankAIController::BeginPlay()
 	*/
 }
 
+
 /*
 ATank* ATankAIController::GetControlledTank() const
 {
@@ -45,7 +47,8 @@ ATank* ATankAIController::GetControlledTank() const
 	auto PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
 	if (!PlayerPawn)	{	return nullptr;	}
 	return Cast<ATank>(PlayerPawn);
-}*/
+}
+*/
 
 void ATankAIController::Tick(float DeltaTime)
 {
@@ -54,8 +57,7 @@ void ATankAIController::Tick(float DeltaTime)
 
 	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
 	auto ControlledTank = GetPawn();
-
-	// if (GetPlayerTank())
+	
 	if (!ensure(PlayerTank && ControlledTank)) { return; }
 	
 	// Move towards the player
@@ -65,6 +67,9 @@ void ATankAIController::Tick(float DeltaTime)
 	auto AimingComponent = ControlledTank->FindComponentByClass<UTankAimingComponent>();
 	AimingComponent->AimAt(PlayerTank->GetActorLocation());
 		
-	AimingComponent->Fire(); // TODO limit firing rate
-	
+	// if aiming or locked
+	if (AimingComponent->GetFiringState() == EFiringState::Locked)
+	{
+		AimingComponent->Fire(); // TODO limit firing rate
+	}
 }

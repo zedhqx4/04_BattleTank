@@ -11,7 +11,8 @@ enum class EFiringState : uint8
 {
 	Reloading,
 	Aiming,
-	Locked
+	Locked,
+	OutOfAmmo
 };
 
 // Fordward Declaration
@@ -35,13 +36,18 @@ public:
 	//void SetCanonReference(UTankTurret* TurretToSet, UTankBarrel* BarrelToSet);
 	//void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
 
-	UFUNCTION(BlueprintCallable, Category = "Setup")
+	UFUNCTION(BlueprintCallable, Category = "Setup") 	// To be able to call as a propierty from components within BluePrint Editor
 	void Initialise(UTankTurret* TurretToSet, UTankBarrel* BarrelTrackToSet);
 
 	void AimAt(FVector HitLocation);
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
+
+	EFiringState GetFiringState() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+	int GetRoundsLeft() const;
 
 
 protected:
@@ -69,7 +75,7 @@ private:
 	UTankTurret* Turret = nullptr;
 	//UStaticMeshComponent* Barrel = nullptr;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	UPROPERTY(EditDefaultsOnly, Category = "Firing") // To edit a parameter in the (default)right menu
 	float LaunchSpeed = 4000;
 		
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
@@ -83,5 +89,7 @@ private:
 	double LastFireTime = 0;
 
 	FVector AimDirection;
+
+	int RoundsLeft = 3;
 	
 };

@@ -16,8 +16,9 @@ AProjectile::AProjectile()
 	CollisionMesh->SetVisibility(true);
 
 	LaunchBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Launch Blast"));
-	LaunchBlast->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepWorldTransform);	
-
+	LaunchBlast->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+	//LaunchBlast->AttachTo(RootComponent);
+		
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(FName("Projectile Movement")); // 
 	ProjectileMovement->bAutoActivate = false;
 }

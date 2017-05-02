@@ -29,6 +29,11 @@ public:
 private:
 	UFUNCTION() //This is a method. This is explicitly for the projectile particle on hit event. ImpactBlast
 		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
+
+	void OnTimerExpire();
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float DestroyDelay = 10;
 	
 	UProjectileMovementComponent* ProjectileMovement = nullptr;
 
@@ -41,6 +46,7 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UParticleSystemComponent* ImpactBlast = nullptr;
 
-	
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		URadialForceComponent* ExplosionForce = nullptr;
 
 };

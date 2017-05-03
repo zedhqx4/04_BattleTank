@@ -8,6 +8,11 @@
 #include "Tank.h"
 
 
+float ATank::GetHealthPercent() const
+{
+	return (float)CurrentHealth / (float)StartingHealth; // Casting CurrentHealth to a float
+}
+
 // Sets default values
 ATank::ATank()
 {
@@ -19,6 +24,23 @@ ATank::ATank()
 	// TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component")); // This creates the Inherited "TankAimingComponent" in the BP editor
 		
 }
+
+
+float ATank::TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEvent, class AController * EventInstigator, AActor * DamageCauser)
+{
+	int32 DamagePoints = FPlatformMath::RoundToInt(DamageAmount); // Convert float to int
+	int32 DamageToApply = FMath::Clamp(DamagePoints, 0, CurrentHealth); // Clamp damage between 0 and current health (for when more damage than actual health might dealt)
+	
+	CurrentHealth -= DamageToApply;
+		if (CurrentHealth <= 0)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Tank died"));
+		}
+
+	return DamageToApply;
+}
+
+
 
 //void ATank::SetBarrelReference(UStaticMeshComponent* BarrelToSet)
 /*void ATank::initialise(UTankTurret* TurretToSet, UTankBarrel* BarrelToSet)

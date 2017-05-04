@@ -6,6 +6,8 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h" // Put new includes above this ALWAYS
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTankDelegate); // To broadcast OnDeath
+
 // Forward declarations
 //class UTankBarrel;
 //class UTankTurret;
@@ -27,6 +29,10 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Health")
 	float GetHealthPercent() const;
 
+	FTankDelegate OnDeath;
+
+
+
 	/*
 	UFUNCTION(BlueprintCallable, Category = Setup)
 		void SetBarrelReference(UTankBarrel* BarrelToSet);
@@ -36,8 +42,6 @@ public:
 		void SetTurretReference(UTankTurret* TurretToSet);
 	*/
 	
-	
-
 	//UFUNCTION(BlueprintCallable)
 		//void Fire();
 
@@ -56,11 +60,17 @@ private:
 	// Sets default values for this pawn's properties
 	ATank();
 
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
 	UPROPERTY (EditDefaultsOnly, Category = "Setup")
 	int32 StartingHealth = 100;
 
 	UPROPERTY(VisibleAnywhere, Category = "Health")
-	int32 CurrentHealth = StartingHealth;
+	int32 CurrentHealth; // Initialized in begin play
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UParticleSystemComponent* BustedTank = nullptr;
 
 };
 
@@ -69,8 +79,7 @@ private:
 
 
 
-	// Called when the game starts or when spawned
-	// virtual void BeginPlay() override;
+	
 
 	// Called to bind functionality to input
 	//virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

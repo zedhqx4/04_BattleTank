@@ -19,12 +19,20 @@ ATank::ATank()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
+	//BustedTank = CreateDefaultSubobject<UParticleSystemComponent>(FName("Busted Tank"));
+	//BustedTank->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	// No need to protect pointers as added at construction
 	// THis is what creates the component within BLUEPRINTs
 	// TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component")); // This creates the Inherited "TankAimingComponent" in the BP editor
 		
 }
 
+// Called when the game starts or when spawned
+void ATank::BeginPlay()
+{
+	Super::BeginPlay(); // Needed for BP Begin Play to run!
+	CurrentHealth = StartingHealth;
+}
 
 float ATank::TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEvent, class AController * EventInstigator, AActor * DamageCauser)
 {
@@ -34,6 +42,9 @@ float ATank::TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEv
 	CurrentHealth -= DamageToApply;
 		if (CurrentHealth <= 0)
 		{
+			OnDeath.Broadcast();
+			//BustedTank->Activate();
+			
 			UE_LOG(LogTemp, Warning, TEXT("Tank died"));
 		}
 
@@ -55,13 +66,6 @@ float ATank::TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEv
 	TankAimingComponent->SetCanonReference(TurretToSet);
 }
 */
-
-// Called when the game starts or when spawned
-/*void ATank::BeginPlay()
-{
-	Super::BeginPlay(); // Needed for BP Begin Play to run!
-	
-}*/
 
 // Called to bind functionality to input
 /*void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

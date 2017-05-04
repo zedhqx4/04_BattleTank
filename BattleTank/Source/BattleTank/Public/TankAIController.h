@@ -24,9 +24,14 @@ private:
 	virtual void BeginPlay() override;
 
 	//ATank* GetPlayerTank() const;
+
+	virtual void SetPawn(APawn* InPawn) override;
 	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-
+	//Delegate method to work from the FTankDelegate in Tank.h
+	UFUNCTION()
+		void OnPossedTankDeath();
 };
+

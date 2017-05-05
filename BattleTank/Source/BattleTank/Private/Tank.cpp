@@ -19,8 +19,10 @@ ATank::ATank()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
+	
 	//BustedTank = CreateDefaultSubobject<UParticleSystemComponent>(FName("Busted Tank"));
 	//BustedTank->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+	//BustedTank->bAutoActivate = false;
 	// No need to protect pointers as added at construction
 	// THis is what creates the component within BLUEPRINTs
 	// TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component")); // This creates the Inherited "TankAimingComponent" in the BP editor
@@ -43,8 +45,8 @@ float ATank::TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEv
 		if (CurrentHealth <= 0)
 		{
 			OnDeath.Broadcast();
-			//BustedTank->Activate();
 			
+			//BustedTank->Activate();
 			UE_LOG(LogTemp, Warning, TEXT("Tank died"));
 		}
 

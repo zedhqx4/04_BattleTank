@@ -108,7 +108,8 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 			HitResult,
 			StartLocation,
 			EndLocation,
-			ECollisionChannel::ECC_Visibility)  // We need getworld coz thats the context to do the line trace (for accessing object member variables and methods via pointer to object)
+			ECollisionChannel::ECC_Camera)
+		//	ECollisionChannel::ECC_Visibility)  // We need getworld coz thats the context to do the line trace (for accessing object member variables and methods via pointer to object)
 		)
 	{
 		// set hit location
